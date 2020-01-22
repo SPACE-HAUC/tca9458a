@@ -21,9 +21,8 @@ int tca9458a_init(tca9458a *dev, uint8_t addr, const char *fname)
     }
     else
         status = 1;
-    dev->channel = 0x00;
     // disable all output
-    status &= tca9458a_set(dev);
+    status &= tca9458a_set(dev, 8);
     return status;
 }
 
@@ -37,9 +36,8 @@ void tca9458a_destroy(tca9458a *dev)
 {
     if (dev == NULL)
         return;
-    dev->channel = 0x00;
     // disable mux
-    tca9458a_set(dev);
+    tca9458a_set(dev, 8);
     // close file descriptor
     close(dev->fd);
     // free allocated memory
