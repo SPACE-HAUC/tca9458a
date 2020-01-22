@@ -1,6 +1,6 @@
 #include "tca9458a.h"
 
-int tca9458a_init(tca9458a *dev, uint8_t addr, const char *fname)
+int tca9458a_init(tca9458a *dev, uint8_t addr, char *fname)
 {
     int status = 1;
     // allocate memory for dev

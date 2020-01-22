@@ -19,7 +19,7 @@ typedef struct
 
 // Initialize a Mux device, returns 1 on success
 // TODO: Implement a scan function at init where it checks all 3 CSS are present on 3 buses?
-int tca9458a_init(tca9458a *, uint8_t addr, const char *);
+int tca9458a_init(tca9458a *, uint8_t addr, char *);
 
 // Update active I2C channel using the 'channel' variable in the struct,
 // returns 1 on success.
