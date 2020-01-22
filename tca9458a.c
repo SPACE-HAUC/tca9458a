@@ -26,12 +26,6 @@ int tca9458a_init(tca9458a *dev, uint8_t addr, const char *fname)
     return status;
 }
 
-inline int tca9458a_set(tca9458a *dev, uint8_t channel_id)
-{
-    dev->channel = channel_id < 8 ? 0x01 << channel_id : 0x00;
-    return write(dev->fd, &(dev->channel), 1);
-}
-
 void tca9458a_destroy(tca9458a *dev)
 {
     if (dev == NULL)
