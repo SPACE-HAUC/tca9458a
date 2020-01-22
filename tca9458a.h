@@ -14,16 +14,17 @@
 typedef struct
 {
     int fd;
+    char fname[40];
     uint8_t channel;
 } tca9458a;
 
 // Initialize a Mux device, returns 1 on success
 // TODO: Implement a scan function at init where it checks all 3 CSS are present on 3 buses?
-int tca9458a_init(tca9458a *, uint8_t addr, char *);
+int tca9458a_init(tca9458a *, uint8_t);
 
 // Update active I2C channel using the 'channel' variable in the struct,
 // returns 1 on success.
-inline int tca9458a_set(tca9458a * dev, uint8_t channel_id)
+int tca9458a_set(tca9458a * dev, uint8_t channel_id)
 {
     dev->channel = channel_id < 8 ? 0x01 << channel_id : 0x00;
     return write(dev->fd, &(dev->channel), 1);

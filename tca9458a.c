@@ -1,6 +1,6 @@
 #include "tca9458a.h"
 
-int tca9458a_init(tca9458a *dev, uint8_t addr, char *fname)
+int tca9458a_init(tca9458a *dev, uint8_t addr)
 {
     int status = 1;
     // allocate memory for dev
@@ -10,7 +10,7 @@ int tca9458a_init(tca9458a *dev, uint8_t addr, char *fname)
         perror("[TCA9458A] Error allocating memory for device");
     }
     // open bus
-    dev->fd = open(fname, O_RDWR);
+    dev->fd = open(dev->fname, O_RDWR);
     if (dev->fd < 0)
     {
         status &= 0;
