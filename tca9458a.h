@@ -23,7 +23,7 @@ int tca9458a_init(tca9458a *, uint8_t addr, const char *);
 
 // Update active I2C channel using the 'channel' variable in the struct,
 // returns 1 on success.
-int tca9458a_set(tca9458a *);
+int tca9458a_set(tca9458a *, uint8_t channel_id);
 
 // Disable all outputs, close fd
 void tca9458a_destroy(tca9458a *);
