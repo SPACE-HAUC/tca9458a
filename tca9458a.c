@@ -33,7 +33,7 @@
 int tca9458a_init(tca9458a *dev, uint8_t id, uint8_t addr, uint8_t ctx)
 {
     int status = 1;
-    dev->bus = (i2cbus *) malloc(sizeof(i2cbus));
+    dev->bus = (i2cbus *)malloc(sizeof(i2cbus));
     if (dev->bus == NULL)
     {
         eprintf("%s: Error allocating ", __func__);
@@ -109,29 +109,29 @@ int main(int argc, char *argv[])
     }
     signal(SIGINT, &sighandler);
     char c = '\0';
-    while(!done)
+    while (!done)
     {
         if (c != '\n')
             printf("[s]et channel, [q]uit: ");
         c = getchar();
         switch (c)
         {
-            case 's':
-            case 'S':
-                printf("Enter channel ID (0 -- 7): ");
-                int i = 0;
-                scanf(" %d", &i);
-                if (tca9458a_set(dev, i) < 0)
-                {
-                    perror("Error setting channel");
-                }
-                break;
-            case 'q':
-            case 'Q':
-                done = 1;
-                break;
-            default:
-                break;
+        case 's':
+        case 'S':
+            printf("Enter channel ID (0 -- 7): ");
+            int i = 0;
+            scanf(" %d", &i);
+            if (tca9458a_set(dev, i) < 0)
+            {
+                perror("Error setting channel");
+            }
+            break;
+        case 'q':
+        case 'Q':
+            done = 1;
+            break;
+        default:
+            break;
         }
     }
     printf("\n");
