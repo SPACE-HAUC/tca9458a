@@ -2,7 +2,7 @@
 build/
 macosx/
 data/
-
+docs/
 # Compiled source #
 ###################
 *.com
@@ -52,9 +52,15 @@ DESKTOP.INI
 *.png
 *.dat
 *.txt
+*.csv
+**/*.csv
 
 # VSCode #
 ##########################
 .vscode
 *.ini
 *.deb
+
+# Doxygen #
+##########################
+docs/latex/*
