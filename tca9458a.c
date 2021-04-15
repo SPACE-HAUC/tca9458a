@@ -17,7 +17,9 @@
 #include <i2cbus/i2cbus.h>
 #include "tca9458a.h"
 
-#define eprintf(...) fprintf(stderr, __VA_ARGS__)
+#define eprintf(str, ...) \
+    fprintf(stderr, "%s, %d: " str "\n", __func__, __LINE__, ##__VA_ARGS__); \
+    fflush(stderr)
 
 /**
  * @brief Initialize a Mux device, returns 1 on success
@@ -30,22 +32,25 @@
  * @param ctx Context for I2C bus driver for singular lock operation
  * @return 1 on success, -1 on error
  */
-int tca9458a_init(tca9458a *dev, uint8_t id, uint8_t addr, uint8_t ctx)
+int tca9458a_init(tca9458a *dev, uint8_t bus, uint8_t addr, uint8_t ctx)
 {
     int status = 1;
-    dev->bus = (i2cbus *)malloc(sizeof(i2cbus));
+    if (dev == NULL)
+    {
+        eprintf("Device pointer is NULL");
+        return -1;
+    }
     if (dev->bus == NULL)
     {
-        eprintf("%s: Error allocating ", __func__);
-        perror("memory");
+        eprintf("Bus pointer is NULL");
         return -1;
     }
     if (addr == 0)
     {
-        eprintf("%s: Warning: No address specified, assuming default address 0x70\n", __func__);
+        eprintf("Warning: No address specified, assuming default address 0x70");
         addr = 0x70;
     }
-    status = i2cbus_open(dev->bus, id, addr);
+    status = i2cbus_open(dev->bus, bus, addr);
     if (status < 0)
     {
         eprintf("%s: Error opening I2C device, ", __func__);
@@ -69,8 +74,6 @@ void tca9458a_destroy(tca9458a *dev)
     tca9458a_set(dev, 8);
     // close file descriptor
     i2cbus_close(dev->bus);
-    // free allocated memory
-    free(dev->bus);
     return;
 }
 
