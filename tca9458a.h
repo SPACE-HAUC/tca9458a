@@ -10,6 +10,9 @@
  */
 #ifndef TCA9458A_H
 #define TCA9458A_H
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <stdint.h>
 #include <i2cbus/i2cbus.h>
 
@@ -48,5 +51,13 @@ static inline int tca9458a_set(tca9458a *dev, uint8_t channel_id)
 #endif
     return i2cbus_write(dev->bus, &(dev->channel), 1);
 }
-void tca9458a_destroy(tca9458a *);
+/**
+ * @brief Disable all channels and close a tca9458a device
+ * 
+ * @param dev Pointer to tca9458a struct
+ */
+void tca9458a_destroy(tca9458a *dev);
+#ifdef __cplusplus
+}
+#endif
 #endif
